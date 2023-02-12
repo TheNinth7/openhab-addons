@@ -263,12 +263,12 @@ _Automatic calibration of `shutterRun`_
 
 If `shutterRun` is set to AUTO a _UP >> DOWN >> Position%_ cycle will be performed automatically the first time a Percent command is sent to the shutter. The binding then relies on the _STOP_ command sent by the actuator at the stop time set in the actuator's advanced configuration in the My Home Suite. Therefore the binding's automatic calibration of `shutterRun` only works correctly if the stop time is set to the time the shutters need to go from full UP to full DOWN. 
 
-Older actuators that come without an ID and do not support advanced configuration via the My Home Suite have a fixed stop time of 60 seconds. In this case auto calibration of the binding cannot be used and `shutterRun` has to be set manually.
+Older actuators that come without an ID and do not support advanced configuration via the My Home Suite can only be set to a few fixed values for stop time via their M parameter, with a default stop time of 60 seconds. In this case auto calibration will not reflect the actual shutter run time and `shutterRun` should be set manually to the actual runtime of the shutters.
 
 _Notes on `shutter` position_
 
 - if `shutterRun` is not set, or is set to `AUTO` but calibration has not been performed yet, then position estimation will remain `UNDEF` (undefined)
-- if `shutterRun` is wrongly set higher than the actual runtime, then position estimation will remain `UNDEF`: try to reduce shutterRun until you find the right value
+- if `shutterRun` is wrongly set higher than the stop time of the actuator (see automatic calibration section above), then position estimation will remain `UNDEF`: try to reduce shutterRun until you find the right value
 - before adding/configuring roller shutter Things it is suggested to have all roller shutters `UP`, otherwise the Percent command won’t work until the roller shutter is fully rolled up
 - if OH is restarted the binding does not know if a shutter position has changed in the meantime, so its position will be `UNDEF`. Move the shutter all `UP`/`DOWN` to synchronize again its position with the binding
 - the shutter position is estimated based on UP/DOWN timing: an error of ±2% is normal
